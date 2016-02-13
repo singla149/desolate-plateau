@@ -29,3 +29,26 @@ def phno(_phno):
 		return True
 	print "Incorrect format, phone number should be of 10 digits long and should contain numbers only."
 	return False
+
+def cred(_cred):
+	"""Validations for credits"""
+	if _cred in xrange(1, 5):
+		return True
+	print "Incorrect credits, should be between 1 and 4 only."
+	return False
+
+def c_type(_c_type):
+	"""Validations for credits"""
+	if _c_type in ["UG", "PG"]:
+		return True
+	print "Incorrect course type, should be UG or PG only."
+	return False
+
+def sem(_sem, _type):
+	limit = {"UG": 8, "PG": 2}
+	lim = limit[_type]
+	if _sem in xrange(1, lim+1):
+		return True
+	print "Incorrect sem, should be within 1-8 for UG and 1-2 for PG."
+	return False
+

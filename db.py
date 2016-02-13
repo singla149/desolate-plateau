@@ -61,9 +61,17 @@ class Course:
 	def new_course(courses, branches):
 		c_id = len(courses)
 		c_type = raw_input("Enter course type: ")
-		name= raw_input("Enter course name: ")
+		while not validations.c_type(c_type):
+			c_type = raw_input("Enter course type: ")
+		#name= raw_input("Enter course name: ")
+		#while not validations.name(name):
+		#	name= raw_input("Enter course name: ")
 		cred= raw_input("Enter credits: ")
+		while not validations.cred(cred):
+			cred= raw_input("Enter credits: ")
 		sem= raw_input("Enter sem: ")
+		while not validations.sem(sem,c_type):
+			sem= raw_input("Enter sem: ")
 		br = raw_input("Enter branch: ")
 		b_id = -1
 		for key in branches:

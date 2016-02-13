@@ -32,16 +32,19 @@ def save():
 	with open("files/enrollments.json", "w") as f:
 		json.dump(enrollments, f)
 
+
+
 def menu():
 	print "Welcome!"
 	while True:
 		print "1.Add a Student"
 		print "2.Delete a Student"
 		print "3. Look Up Student Record"
-		print "4.Exit/Quit"
+		print "4.Exit"
 		ch = raw_input("What would you like to do? ")
 		if ch == "1":
-			pass
+			Student.new_student(students, branches)
+			save()
 		elif ch == "2":
 			pass
 		elif ch == "3":

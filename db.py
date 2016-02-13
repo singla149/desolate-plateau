@@ -42,6 +42,32 @@ class Student:
 
 class Course:
 	"""Course class"""
+	@staticmethod
+	def new_course(courses, branches):
+		c_id = len(courses)
+		c_type = raw_input("Enter course type: ")
+		name= raw_input("Enter course name: ")
+		cred= raw_input("Enter credits: ")
+		sem= raw_input("Enter sem: ")
+		br = raw_input("Enter branch: ")
+		b_id = -1
+		for key in branches:
+			if branches[key]["name"] == br:
+				b_id = key
+				break
+		if b_id == -1:
+			print "\n\nERROR! No such branch exists!\n\n"
+		else:
+			print "yo\n"
+			cou = Course(c_id, c_type, name, b_id, cred, sem)
+			courses[c_id] = {
+			"c_type": c_type,
+			"name": name,
+			"b_id": b_id,
+			"cred": cred,
+			"sem": sem
+			}
+
 	def __init__(self, c_id, c_type, name, b_id, cred, sem):
 		self.c_id = c_id
 		self.c_type = c_type

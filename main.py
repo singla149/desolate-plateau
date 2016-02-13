@@ -40,7 +40,8 @@ def menu():
 		print "1.Add a Student"
 		print "2.Delete a Student"
 		print "3. Look Up Student Record"
-		print "4.Exit"
+		print "4. Add a course"
+		print "5.Exit"
 		ch = raw_input("What would you like to do? ")
 		if ch == "1":
 			Student.new_student(students, branches)
@@ -49,7 +50,10 @@ def menu():
 			pass
 		elif ch == "3":
 			pass
-		elif ch == "4":
+		elif ch=="4":
+			Course.new_course(courses, branches)
+			save()
+		elif ch == "5":
 			print "\nBye!\n"
 			break
 		else:

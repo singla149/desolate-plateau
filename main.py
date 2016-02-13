@@ -10,7 +10,8 @@ enrollments = {}
 def init():
 	global students
 	global courses
-	global enrollments 
+	global enrollments
+	global branches 
 	with open("files/students.json", "r") as f:
 		students = json.load(f)
 	with open("files/courses.json", "r") as f:

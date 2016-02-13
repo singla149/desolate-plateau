@@ -11,10 +11,11 @@ class Student:
 
 class Course:
 	"""Course class"""
-	def __init__(self, c_id, c_type, name, cred, sem):
+	def __init__(self, c_id, c_type, name, b_id, cred, sem):
 		self.c_id = c_id
 		self.c_type = c_type
 		self.name = name
+		self.b_id=b_id
 		self.credits = cred
 		self.sem = sem
 
@@ -25,3 +26,10 @@ class Enrollment:
 		self.c_id = c_id
 		self.rollno = rollno
 		self.doe = doe
+
+class Branch:
+	"""Enrollment class"""
+	def __init__(self, b_id, name):
+		pass
+		self.b_id = b_id
+		self.name = name

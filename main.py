@@ -1,17 +1,20 @@
 import json
 import datetime
-from db import Student, Course, Enrollment
+from db import Student, Course, Enrollment, Branch
 
 
 students = {}
 courses = {}
 enrollments = {}
+branches = {}
 
 def init():
 	global students
 	global courses
 	global enrollments
 	global branches 
+	with open("files/branches.json", "r") as f:
+		branches = json.load(f)
 	with open("files/students.json", "r") as f:
 		students = json.load(f)
 	with open("files/courses.json", "r") as f:
@@ -20,6 +23,8 @@ def init():
 		enrollments = json.load(f)
 
 def save():
+	with open("files/branches.json", "w") as f:
+		json.dump(branches, f)
 	with open("files/students.json", "w") as f:
 		json.dump(students, f)
 	with open("files/courses.json", "w") as f:

@@ -22,14 +22,12 @@ class Course:
 class Enrollment:
 	"""Enrollment class"""
 	def __init__(self, c_id, rollno, doe):
-		pass
 		self.c_id = c_id
 		self.rollno = rollno
 		self.doe = doe
 
 class Branch:
-	"""Enrollment class"""
+	"""Branch class"""
 	def __init__(self, b_id, name):
-		pass
 		self.b_id = b_id
 		self.name = name

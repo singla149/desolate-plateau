@@ -1,13 +1,13 @@
 {
 	"601": {
-		"c_type": "Under Graduate",
+		"c_type": "UG",
 		"name": "Microprocessors",
 		"b_id": "1",
 		"cred": "4",
 		"sem": "6"
 	},
 	"901": {
-		"c_type": "Graduate",
+		"c_type": "PG",
 		"name": "Advanced Microprocessors",
 		"b_id": "1",
 		"cred": "4",

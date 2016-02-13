@@ -5,23 +5,18 @@ class Student:
 	@staticmethod
 	def new_student(students, branches):
 		roll = raw_input("Enter roll no.: ")
-
 		name = raw_input("Enter name: ")
 		while not validations.name(name):
 			name = raw_input("Enter name: ")
-
 		sex = raw_input("Enter sex: ")
-		while not validations.sex(sex):
+		while not validations.sex(sex.upper()):
 			sex = raw_input("Enter sex: ")
-
 		dob = raw_input("Enter dob (YYYY-MM-DD): ")
 		while not validations.date(dob):
 			dob = raw_input("Enter dob (YYYY-MM-DD): ")
-
 		ph = raw_input("Enter phone number: ")
 		while not validations.phno(ph):
 			ph = raw_input("Enter phone number: ")
-
 		addr = raw_input("Enter Address: ")
 		br = raw_input("Enter branch: ")
 		b_id = -1
@@ -61,17 +56,17 @@ class Course:
 	def new_course(courses, branches):
 		c_id = len(courses)
 		c_type = raw_input("Enter course type: ")
-		while not validations.c_type(c_type):
+		while not validations.c_type(c_type.upper()):
 			c_type = raw_input("Enter course type: ")
-		#name= raw_input("Enter course name: ")
-		#while not validations.name(name):
-		#	name= raw_input("Enter course name: ")
-		cred= raw_input("Enter credits: ")
+		name = raw_input("Enter course name: ")
+		while not validations.name(name):
+			name = raw_input("Enter course name: ")
+		cred = raw_input("Enter credits: ")
 		while not validations.cred(cred):
-			cred= raw_input("Enter credits: ")
-		sem= raw_input("Enter sem: ")
-		while not validations.sem(sem,c_type):
-			sem= raw_input("Enter sem: ")
+			cred = raw_input("Enter credits: ")
+		sem = raw_input("Enter sem: ")
+		while not validations.sem(sem, c_type.upper()):
+			sem = raw_input("Enter sem: ")
 		br = raw_input("Enter branch: ")
 		b_id = -1
 		for key in branches:
@@ -84,7 +79,7 @@ class Course:
 			print "yo\n"
 			cou = Course(c_id, c_type, name, b_id, cred, sem)
 			courses[c_id] = {
-			"c_type": c_type,
+			"c_type": c_type.upper(),
 			"name": name,
 			"b_id": b_id,
 			"cred": cred,

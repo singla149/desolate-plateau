@@ -11,7 +11,7 @@ def date(_date):
 
 def sex(_sex):
 	"""Validations for sex"""
-	if _sex in ["M", "F", "m", "f"]:
+	if _sex in ["M", "F"]:
 		return True
 	print "Incorrect format, should be M/F"
 	return False
@@ -32,8 +32,11 @@ def phno(_phno):
 
 def cred(_cred):
 	"""Validations for credits"""
-	if _cred in xrange(1, 5):
-		return True
+	try:
+		if int(_cred) in xrange(1, 5):
+			return True
+	except:
+		pass
 	print "Incorrect credits, should be between 1 and 4 only."
 	return False
 
@@ -47,8 +50,11 @@ def c_type(_c_type):
 def sem(_sem, _type):
 	limit = {"UG": 8, "PG": 2}
 	lim = limit[_type]
-	if _sem in xrange(1, lim+1):
-		return True
+	try:
+		if int(_sem) in xrange(1, lim+1):
+			return True
+	except:
+		pass
 	print "Incorrect sem, should be within 1-8 for UG and 1-2 for PG."
 	return False
 

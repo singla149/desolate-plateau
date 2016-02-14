@@ -7,12 +7,14 @@ students = {}
 courses = {}
 enrollments = {}
 branches = {}
+archived_enrolls = {}
 
 def init():
 	global students
 	global courses
 	global enrollments
 	global branches 
+	global archived_enrolls
 	with open("files/branches.json", "r") as f:
 		branches = json.load(f)
 	with open("files/students.json", "r") as f:
@@ -21,6 +23,8 @@ def init():
 		courses = json.load(f)
 	with open("files/enrollments.json", "r") as f:
 		enrollments = json.load(f)
+	with open("files/archived_enrolls.json", "r") as f:
+		archived_enrolls = json.load(f)
 
 def save():
 	with open("files/branches.json", "w") as f:
@@ -31,7 +35,8 @@ def save():
 		json.dump(courses, f)
 	with open("files/enrollments.json", "w") as f:
 		json.dump(enrollments, f)
-
+	with open("files/archived_enrolls.json", "w") as f:
+		json.dump(archived_enrolls, f)
 
 
 def menu():

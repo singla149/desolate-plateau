@@ -171,6 +171,28 @@ class Course:
 class Enrollment:
 	"""Enrollment class"""
 	@staticmethod
+	def archive_enrollments(enrollments, archived_enrolls):
+		pass
+		all_removals = []
+		for key in enrollments:
+			doe = enrollments[key]["doe"]
+			doe = datetime.datetime.strptime(doe, '%Y-%m-%d').date()
+			if datetime.date.today() - doe >=  datetime.timedelta(weeks=26):
+				removal = [key.split("##@@##")[0], key.split("##@@##")[1], enrollments[key]["doe"]]
+				all_removals.append(removal)
+
+		for removal in all_removals:
+			del enrollments[removal[0]+"##@@##"+removal[1]]
+			archived_enrolls[removal[0]+"##@@##"+removal[1]] = {"doe": removal[2]}
+
+		print "\n\nEnrollments that were archived:\n\n"
+		print tabulate(all_removals,
+			headers = ["Roll No.", "Course ID", "Enrollment Date"],
+			tablefmt = "grid"
+			)
+		print "\n\n"
+
+	@staticmethod
 	def new_enrollment(enrollments, students, courses):
 		roll = raw_input("Enter roll no.: ")
 		if roll not in students:

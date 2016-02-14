@@ -171,7 +171,7 @@ class Course:
 
 	@staticmethod
 	def new_course(courses, branches):
-		c_id = len(courses)
+		c_id = len(courses)+1
 		c_type = raw_input("Enter course type: ")
 		while not validations.c_type(c_type.upper()):
 			c_type = raw_input("Enter course type: ")

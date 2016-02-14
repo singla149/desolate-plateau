@@ -1,16 +1,1 @@
-{
-	"601": {
-		"c_type": "UG",
-		"name": "Microprocessors",
-		"b_id": "1",
-		"cred": "4",
-		"sem": "6"
-	},
-	"901": {
-		"c_type": "PG",
-		"name": "Advanced Microprocessors",
-		"b_id": "1",
-		"cred": "4",
-		"sem": "1"
-	}
-}
+{"1": {"c_type": "UG", "sem": "6", "cred": "4", "name": "MICROPROCESSORS", "b_id": "1"}, "3": {"c_type": "UG", "sem": "1", "cred": "4", "name": "Humanities", "b_id": "1"}, "2": {"c_type": "PG", "sem": "1", "cred": "4", "name": "Advanced Microprocessors", "b_id": "1"}, "5": {"c_type": "PG", "sem": "1", "cred": "4", "name": "Potions", "b_id": "1"}, "4": {"c_type": "UG", "sem": "2", "cred": "2", "name": "physics lab", "b_id": "2"}, "7": {"c_type": "UG", "sem": "3", "cred": "4", "name": "Maths", "b_id": "2"}, "6": {"c_type": "PG", "sem": "1", "cred": "4", "name": "Defence against the dark arts", "b_id": "3"}, "8": {"c_type": "PG", "sem": "2", "cred": "2", "name": "Sociology", "b_id": "1"}}

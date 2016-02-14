@@ -160,6 +160,31 @@ class Course:
 			"sem": sem
 			}
 
+	@staticmethod
+	def delete_course(courses, enrollments):
+		c_id = raw_input("Enter course ID: ")
+		if c_id not in courses:
+			print "\n\nERROR! No such course exists!\n\n"
+			return
+		all_removals = []
+		for key in enrollments:
+			if c_id == key.split("##@@##")[1]:
+				removal = [key.split("##@@##")[0], enrollments[key]["doe"]]
+				all_removals.append(removal)
+
+		print "\n\nCourse", c_id, courses[c_id]["name"], "removed."
+
+		for removal in all_removals:
+			del enrollments[removal[0]+"##@@##"+c_id]
+		del courses[c_id]
+
+		print "\n\nRemovals for course:\n\n"
+		print tabulate(all_removals, 
+			headers = ["Roll No", "Enrollment Date"], 
+			tablefmt = "grid"
+			)
+		print "\n\n"
+
 	def __init__(self, c_id, c_type, name, b_id, cred, sem):
 		self.c_id = c_id
 		self.c_type = c_type

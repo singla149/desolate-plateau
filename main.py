@@ -43,7 +43,8 @@ def menu():
 		print "4. Add a course"
 		print "5. List all courses"
 		print "6. Enroll student in course"
-		print "7. Exit"
+		print "7. Delete a course"
+		print "8. Exit"
 		ch = raw_input("What would you like to do? ")
 		if ch == "1":
 			Student.new_student(students, branches)
@@ -58,6 +59,8 @@ def menu():
 		elif ch == "6":
 			Enrollment.new_enrollment(enrollments, students, courses)
 		elif ch == "7":
+			Course.delete_course(courses, enrollments)
+		elif ch == "8":
 			print "\nBye!\n"
 			break
 		else:

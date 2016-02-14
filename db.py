@@ -53,7 +53,7 @@ class Student:
 		print "\n\n"
 
 	@staticmethod
-	def modify_student(students, branches):
+	def modify_student(students):
 		roll = raw_input("Enter roll no. of the student: ")
 		if roll not in students:
 			print "\n\nERROR! Student not registered!\n\n"
@@ -225,6 +225,30 @@ class Course:
 			tablefmt = "grid"
 			)
 		print "\n\n"
+
+	@staticmethod
+	def modify_course(courses):
+		c_id = raw_input("Enter course ID: ")
+		if c_id not in courses:
+			print "\n\nERROR! No such course exists!\n\n"
+			return
+
+		cou = courses[c_id]
+		print "Leave the fields blank to retain old values\n\n"
+		print "Current name:", cou["name"]
+		name = raw_input("Enter name: ")
+		if name != "":
+			while not validations.name(name):
+				name = raw_input("Enter name: ")
+			cou["name"] = name
+
+		print "Current credits:", cou["cred"]
+		cred = raw_input("Enter Credits: ")
+		if cred != "":
+			while not validations.cred(cred):
+				cred = raw_input("Enter Credits: ")
+			cou["cred"] = cred
+
 
 	def __init__(self, c_id, c_type, name, b_id, cred, sem):
 		self.c_id = c_id

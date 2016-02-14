@@ -41,23 +41,25 @@ def menu():
 		print "2.Delete a Student"
 		print "3. Look Up Student Record"
 		print "4. Add a course"
-		print "5.Exit"
+		print "5. Enroll student in course"
+		print "6.Exit"
 		ch = raw_input("What would you like to do? ")
 		if ch == "1":
 			Student.new_student(students, branches)
-			save()
 		elif ch == "2":
 			pass
 		elif ch == "3":
 			pass
-		elif ch=="4":
+		elif ch == "4":
 			Course.new_course(courses, branches)
-			save()
 		elif ch == "5":
+			Enrollment.new_enrollment(enrollments, students, courses)
+		elif ch == "6":
 			print "\nBye!\n"
 			break
 		else:
 			print "\nNot Valid Choice! Try again!\n"
+		save()
 
 if __name__ == "__main__":
 	init()

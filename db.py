@@ -1,4 +1,5 @@
 import validations
+import datetime
 
 class Student:
 	"""Student class"""
@@ -96,6 +97,43 @@ class Course:
 
 class Enrollment:
 	"""Enrollment class"""
+	@staticmethod
+	def new_enrollment(enrollments, students, courses):
+		roll = raw_input("Enter roll no.: ")
+		if roll not in students:
+			print "\n\nERROR! No such student exists!\n\n"
+			return
+		c_id = raw_input("Enter course id: ")
+		if c_id not in courses:
+			print "\n\nERROR! No such course exists!\n\n"
+			return
+
+		b_id = courses[c_id]["b_id"]
+		if b_id != students[roll]["b_id"]:
+			print "\n\nERROR! Cannot enroll student in other branch's course!\n\n"
+			return
+
+		key = roll + "##@@##" + c_id
+
+		if key in enrollments:
+			print "\n\nERROR! Student already enrolled for this course!\n\n"
+			return
+		sem = courses[c_id]["sem"]
+		enroll_courses = []
+		for c_id in courses:
+			if sem == courses[c_id]["sem"] and b_id == courses[c_id]["b_id"]:
+				enroll_courses.append((c_id,courses[c_id]["name"]))
+
+		for course in enroll_courses:
+			key = roll + "##@@##" + course[0]
+			if key not in enrollments:
+				enrollments[key] = {"doe": str(datetime.date.today())}
+
+		print "\n\nStudent registered successfully for the following courses:\n\n"
+		for course in enroll_courses:
+			print course[0], course[1]
+		print "\n\n"
+
 	def __init__(self, c_id, rollno, doe):
 		self.c_id = c_id
 		self.rollno = rollno

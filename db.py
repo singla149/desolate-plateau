@@ -11,6 +11,7 @@ class Student:
 			stu = students[roll]
 			curr = [roll, 
 				stu["name"],
+				stu["c_type"],
 				stu["dob"],
 				stu["sex"],
 				stu["addr"],
@@ -21,7 +22,7 @@ class Student:
 
 		print "\n\nStudents in the database:\n\n"
 		print tabulate(all_students, 
-			headers = ["Roll No.", "Name", "DOB", "Sex", "Address", "Phone No.", "Branch"], 
+			headers = ["Roll No.", "Name", "c_type", "DOB", "Sex", "Address", "Phone No.", "Branch"], 
 			tablefmt = "grid"
 			)
 		print "\n\n"
@@ -32,6 +33,9 @@ class Student:
 		name = raw_input("Enter name: ")
 		while not validations.name(name):
 			name = raw_input("Enter name: ")
+		c_type = raw_input("Enter course type: ")
+		while not validations.c_type(c_type.upper()):
+			c_type = raw_input("Enter course type: ")
 		sex = raw_input("Enter sex: ")
 		while not validations.sex(sex.upper()):
 			sex = raw_input("Enter sex: ")
@@ -51,20 +55,21 @@ class Student:
 		if b_id == -1:
 			print "\n\nERROR! No such branch exists!\n\n"
 			return
-		stu = Student(roll, name, sex, dob, ph, addr, b_id)
+		stu = Student(roll, name, c_type, sex, dob, ph, addr, b_id)
 		if roll in students:
 			print "\n\nERROR! Student already registered!\n\n"
 			return
 		students[roll] = {
 			"name": name,
+			"c_type": c_type,
 			"dob": dob,
 			"sex": sex.upper(),
 			"addr": addr,
 			"ph_no": ph,
-			"b_id": b_id
+			"b_id": b_id 
 		}
 
-	def __init__(self, rollno, name, sex, dob, ph_no, addr, b_id):
+	def __init__(self, rollno, name, sex, dob, ph_no, addr, b_id, c_type):
 		self.rollno = rollno
 		self.name = name
 		self.sex = sex
@@ -72,7 +77,7 @@ class Student:
 		self.ph_no = ph_no
 		self.addr = addr
 		self.b_id = b_id
-
+		self.c_type = c_type
 
 class Course:
 	"""Course class"""
@@ -146,9 +151,14 @@ class Enrollment:
 		if roll not in students:
 			print "\n\nERROR! No such student exists!\n\n"
 			return
+
 		c_id = raw_input("Enter course id: ")
 		if c_id not in courses:
 			print "\n\nERROR! No such course exists!\n\n"
+			return
+		
+		if students[roll]["c_type"] != courses[c_id]["c_type"]:
+			print "\n\nERROR! Course not available for this student! Course types don't match!\n\n"
 			return
 
 		b_id = courses[c_id]["b_id"]

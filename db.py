@@ -11,18 +11,43 @@ class Student:
 			stu = students[roll]
 			curr = [roll, 
 				stu["name"],
-				stu["c_type"],
 				stu["dob"],
 				stu["sex"],
 				stu["addr"],
 				stu["ph_no"],
-				branches[stu["b_id"]]["name"]
+				branches[stu["b_id"]]["name"],
+				stu["c_type"]
 			]
 			all_students.append(curr)
 
 		print "\n\nStudents in the database:\n\n"
 		print tabulate(all_students, 
-			headers = ["Roll No.", "Name", "c_type", "DOB", "Sex", "Address", "Phone No.", "Branch"], 
+			headers = ["Roll No.", "Name", "DOB", "Sex", "Address", "Phone No.", "Branch", "Type"], 
+			tablefmt = "grid"
+			)
+		print "\n\n"
+
+	@staticmethod
+	def delete_student(students, enrollments):
+		roll = raw_input("Enter roll no.: ")
+		if roll not in students:
+			print "\n\nERROR! No such student exists!\n\n"
+			return
+		all_removals = []
+		for key in enrollments:
+			if roll == key.split("##@@##")[0]:
+				removal = [key.split("##@@##")[1], enrollments[key]["doe"]]
+				all_removals.append(removal)
+
+		print "\n\nStudent", roll, students[roll]["name"], "removed."
+
+		for removal in all_removals:
+			del enrollments[roll+"##@@##"+removal[0]]
+		del students[roll]
+
+		print "\n\nRemovals for student:\n\n"
+		print tabulate(all_removals, 
+			headers = ["Course ID", "Enrollment Date"], 
 			tablefmt = "grid"
 			)
 		print "\n\n"
@@ -33,9 +58,9 @@ class Student:
 		name = raw_input("Enter name: ")
 		while not validations.name(name):
 			name = raw_input("Enter name: ")
-		c_type = raw_input("Enter course type: ")
+		c_type = raw_input("Enter course type (UG/PG): ")
 		while not validations.c_type(c_type.upper()):
-			c_type = raw_input("Enter course type: ")
+			c_type = raw_input("Enter course type (UG/PG): ")
 		sex = raw_input("Enter sex: ")
 		while not validations.sex(sex.upper()):
 			sex = raw_input("Enter sex: ")
@@ -157,8 +182,9 @@ class Enrollment:
 			print "\n\nERROR! No such course exists!\n\n"
 			return
 		
-		if students[roll]["c_type"] != courses[c_id]["c_type"]:
-			print "\n\nERROR! Course not available for this student! Course types don't match!\n\n"
+		c_type = courses[c_id]["c_type"]
+		if students[roll]["c_type"] != c_type:
+			print "\n\nERROR! Course not available for this student!\n\n"
 			return
 
 		b_id = courses[c_id]["b_id"]
@@ -174,7 +200,7 @@ class Enrollment:
 		sem = courses[c_id]["sem"]
 		enroll_courses = []
 		for c_id in courses:
-			if sem == courses[c_id]["sem"] and b_id == courses[c_id]["b_id"]:
+			if sem == courses[c_id]["sem"] and b_id == courses[c_id]["b_id"] and c_type == courses[c_id]["c_type"]:
 				enroll_courses.append( [c_id, courses[c_id]["name"]] )
 
 		for course in enroll_courses:

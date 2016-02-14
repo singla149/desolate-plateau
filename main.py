@@ -48,7 +48,7 @@ def menu():
 		if ch == "1":
 			Student.new_student(students, branches)
 		elif ch == "2":
-			pass
+			Student.delete_student(students, enrollments)
 		elif ch == "3":
 			Student.list_students(students, branches)
 		elif ch == "4":

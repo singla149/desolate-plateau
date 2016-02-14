@@ -20,7 +20,7 @@ class Student:
 			]
 			all_students.append(curr)
 
-		print "\n\nStudents in the database:\n\n"
+		print "\n\nStudents in the database:"
 		print tabulate(all_students, 
 			headers = ["Roll No.", "Name", "DOB", "Sex", "Address", "Phone No.", "Branch", "Type"], 
 			tablefmt = "grid"
@@ -45,7 +45,7 @@ class Student:
 			del enrollments[roll+"##@@##"+removal[0]]
 		del students[roll]
 
-		print "\n\nRemovals for student:\n\n"
+		print "\n\nRemovals for student:"
 		print tabulate(all_removals, 
 			headers = ["Course ID", "Enrollment Date"], 
 			tablefmt = "grid"
@@ -162,7 +162,7 @@ class Course:
 				cou["sem"],
 			]
 			all_courses.append(curr)
-		print "\n\nCourses in the database:\n\n"
+		print "\n\nCourses in the database:"
 		print tabulate(all_courses, 
 			headers = ["Course ID", "Name", "Branch", "Credits", "Type", "Semester"], 
 			tablefmt = "grid"
@@ -219,7 +219,7 @@ class Course:
 			del enrollments[removal[0]+"##@@##"+c_id]
 		del courses[c_id]
 
-		print "\n\nRemovals for course:\n\n"
+		print "\n\nRemovals for course:"
 		print tabulate(all_removals, 
 			headers = ["Roll No", "Enrollment Date"], 
 			tablefmt = "grid"
@@ -261,8 +261,69 @@ class Course:
 class Enrollment:
 	"""Enrollment class"""
 	@staticmethod
+	def list_enrollments_stu(enrollments, archived_enrolls, students, courses):
+		roll = raw_input("Enter roll no. of the student: ")
+		if roll not in students:
+			print "\n\nERROR! Student not registered!\n\n"
+			return
+		current_enrollments = []
+		for key in enrollments:
+			if roll == key.split("##@@##")[0]:
+				c_id = key.split("##@@##")[1]
+				enrol = [c_id, courses[c_id]["name"], enrollments[key]["doe"]]
+				current_enrollments.append(enrol)
+		prev_enrollments = []
+		for key in archived_enrolls:
+			if roll == key.split("##@@##")[0]:
+				c_id = key.split("##@@##")[1]
+				enrol = [c_id, courses[c_id]["name"], archived_enrolls[key]["doe"]]
+				prev_enrollments.append(enrol)
+		print "\nEnrollments for Roll No. " + roll + ": " + students[roll]["name"] + " are:"
+		print "\n\nCurrent Enrollments:"
+		print tabulate(current_enrollments,
+			headers = ["Course ID", "Course Name", "Enrollment Date"],
+			tablefmt = "grid"
+			)
+		print "\n\nPrevious Enrollments:"
+		print tabulate(prev_enrollments,
+			headers = ["Course ID", "Course Name", "Enrollment Date"],
+			tablefmt = "grid"
+			)
+		print "\n\n"
+
+	@staticmethod
+	def list_enrollments_cou(enrollments, archived_enrolls, students, courses):
+		c_id = raw_input("Enter Course ID of the course: ")
+		if c_id not in courses:
+			print "\n\nERROR! Course ID not found!\n\n"
+			return
+		current_enrollments = []
+		for key in enrollments:
+			if c_id == key.split("##@@##")[1]:
+				roll = key.split("##@@##")[0]
+				enrol = [roll, students[roll]["name"], enrollments[key]["doe"]]
+				current_enrollments.append(enrol)
+		prev_enrollments = []
+		for key in archived_enrolls:
+			if c_id == key.split("##@@##")[1]:
+				roll = key.split("##@@##")[0]
+				enrol = [roll, students[roll]["name"], archived_enrolls[key]["doe"]]
+				prev_enrollments.append(enrol)
+		print "\nEnrollments for Course ID " + c_id + ": " + courses[c_id]["name"] + " are:"
+		print "\n\nCurrent Enrollments:"
+		print tabulate(current_enrollments,
+			headers = ["Roll No", "Student Name", "Enrollment Date"],
+			tablefmt = "grid"
+			)
+		print "\n\nPrevious Enrollments:"
+		print tabulate(prev_enrollments,
+			headers = ["Roll No", "Student Name", "Enrollment Date"],
+			tablefmt = "grid"
+			)
+		print "\n\n"
+
+	@staticmethod
 	def archive_enrollments(enrollments, archived_enrolls):
-		pass
 		all_removals = []
 		for key in enrollments:
 			doe = enrollments[key]["doe"]
@@ -275,7 +336,7 @@ class Enrollment:
 			del enrollments[removal[0]+"##@@##"+removal[1]]
 			archived_enrolls[removal[0]+"##@@##"+removal[1]] = {"doe": removal[2]}
 
-		print "\n\nEnrollments that were archived:\n\n"
+		print "\n\nEnrollments that were archived:"
 		print tabulate(all_removals,
 			headers = ["Roll No.", "Course ID", "Enrollment Date"],
 			tablefmt = "grid"
@@ -320,7 +381,7 @@ class Enrollment:
 			if key not in enrollments:
 				enrollments[key] = {"doe": str(datetime.date.today())}
 
-		print "\n\nStudent registered successfully for the following courses:\n\n"
+		print "\n\nStudent registered successfully for the following courses:"
 		print tabulate(enroll_courses, 
 			headers = ["Course ID", "Course Name"], 
 			tablefmt = "grid"

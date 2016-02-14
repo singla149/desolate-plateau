@@ -51,8 +51,10 @@ def menu():
 		print "7. Modify course details"
 		print "8. List all courses"
 		print "9. Enroll student in course"
-		print "10. Archive old enrollments"
-		print "11. Exit"
+		print "10. Show enrollments of a student"
+		print "11. Show enrollments of a course"
+		print "12. Archive old enrollments"
+		print "13. Exit"
 		ch = raw_input("What would you like to do? ")
 		if ch == "1":
 			Student.new_student(students, branches)
@@ -73,8 +75,12 @@ def menu():
 		elif ch == "9":
 			Enrollment.new_enrollment(enrollments, students, courses)
 		elif ch == "10":
-			Enrollment.archive_enrollments(enrollments, archived_enrolls)
+			Enrollment.list_enrollments_stu(enrollments, archived_enrolls, students, courses)
 		elif ch == "11":
+			Enrollment.list_enrollments_cou(enrollments, archived_enrolls, students, courses)
+		elif ch == "12":
+			Enrollment.archive_enrollments(enrollments, archived_enrolls)
+		elif ch == "13":
 			print "\nBye!\n"
 			break
 		else:

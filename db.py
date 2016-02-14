@@ -1,8 +1,31 @@
 import validations
 import datetime
+from tabulate import tabulate
 
 class Student:
 	"""Student class"""
+	@staticmethod
+	def list_students(students, branches):
+		all_students = []
+		for roll in students:
+			stu = students[roll]
+			curr = [roll, 
+				stu["name"],
+				stu["dob"],
+				stu["sex"],
+				stu["addr"],
+				stu["ph_no"],
+				branches[stu["b_id"]]["name"]
+			]
+			all_students.append(curr)
+
+		print "\n\nStudents in the database:\n\n"
+		print tabulate(all_students, 
+			headers = ["Roll No.", "Name", "DOB", "Sex", "Address", "Phone No.", "Branch"], 
+			tablefmt = "grid"
+			)
+		print "\n\n"
+
 	@staticmethod
 	def new_student(students, branches):
 		roll = raw_input("Enter roll no.: ")
@@ -53,6 +76,26 @@ class Student:
 
 class Course:
 	"""Course class"""
+	@staticmethod
+	def list_courses(courses, branches):
+		all_courses = []
+		for c_id in courses:
+			cou = courses[c_id]
+			curr = [c_id, 
+				cou["name"],
+				branches[cou["b_id"]]["name"],
+				cou["cred"],
+				cou["c_type"],
+				cou["sem"],
+			]
+			all_courses.append(curr)
+		print "\n\nCourses in the database:\n\n"
+		print tabulate(all_courses, 
+			headers = ["Course ID", "Name", "Branch", "Credits", "Type", "Semester"], 
+			tablefmt = "grid"
+			)
+		print "\n\n"
+
 	@staticmethod
 	def new_course(courses, branches):
 		c_id = len(courses)
@@ -122,7 +165,7 @@ class Enrollment:
 		enroll_courses = []
 		for c_id in courses:
 			if sem == courses[c_id]["sem"] and b_id == courses[c_id]["b_id"]:
-				enroll_courses.append((c_id,courses[c_id]["name"]))
+				enroll_courses.append( [c_id, courses[c_id]["name"]] )
 
 		for course in enroll_courses:
 			key = roll + "##@@##" + course[0]
@@ -130,8 +173,10 @@ class Enrollment:
 				enrollments[key] = {"doe": str(datetime.date.today())}
 
 		print "\n\nStudent registered successfully for the following courses:\n\n"
-		for course in enroll_courses:
-			print course[0], course[1]
+		print tabulate(enroll_courses, 
+			headers = ["Course ID", "Course Name"], 
+			tablefmt = "grid"
+			)
 		print "\n\n"
 
 	def __init__(self, c_id, rollno, doe):

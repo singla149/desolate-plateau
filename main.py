@@ -37,24 +37,27 @@ def save():
 def menu():
 	print "Welcome!"
 	while True:
-		print "1.Add a Student"
-		print "2.Delete a Student"
-		print "3. Look Up Student Record"
+		print "1. Add a Student"
+		print "2. Delete a Student"
+		print "3. List all students"
 		print "4. Add a course"
-		print "5. Enroll student in course"
-		print "6.Exit"
+		print "5. List all courses"
+		print "6. Enroll student in course"
+		print "7. Exit"
 		ch = raw_input("What would you like to do? ")
 		if ch == "1":
 			Student.new_student(students, branches)
 		elif ch == "2":
 			pass
 		elif ch == "3":
-			pass
+			Student.list_students(students, branches)
 		elif ch == "4":
 			Course.new_course(courses, branches)
 		elif ch == "5":
-			Enrollment.new_enrollment(enrollments, students, courses)
+			Course.list_courses(courses, branches)
 		elif ch == "6":
+			Enrollment.new_enrollment(enrollments, students, courses)
+		elif ch == "7":
 			print "\nBye!\n"
 			break
 		else:

@@ -44,13 +44,13 @@ def menu():
 	while True:
 		print "1. Add a Student"
 		print "2. Delete a Student"
-		print "3. List all students"
-		print "4. Add a course"
-		print "5. List all courses"
-		print "6. Enroll student in course"
-		print "7. Delete a course"
-		print "8. Archive old enrollments"
-		print "9. Modify a student's records"
+		print "3. Modify a student's records"
+		print "4. List all students"
+		print "5. Add a course"
+		print "6. List all courses"
+		print "7. Enroll student in course"
+		print "8. Delete a course"
+		print "9. Archive old enrollments"
 		print "10. Exit"
 		ch = raw_input("What would you like to do? ")
 		if ch == "1":
@@ -58,19 +58,19 @@ def menu():
 		elif ch == "2":
 			Student.delete_student(students, enrollments)
 		elif ch == "3":
-			Student.list_students(students, branches)
-		elif ch == "4":
-			Course.new_course(courses, branches)
-		elif ch == "5":
-			Course.list_courses(courses, branches)
-		elif ch == "6":
-			Enrollment.new_enrollment(enrollments, students, courses)
-		elif ch == "7":
-			Course.delete_course(courses, enrollments)
-		elif ch == "8":
-			Enrollment.archive_enrollments(enrollments, archived_enrolls)
-		elif ch == "9":
 			Student.modify_student(students, branches)
+		elif ch == "4":
+			Student.list_students(students, branches)
+		elif ch == "5":
+			Course.new_course(courses, branches)
+		elif ch == "6":
+			Course.list_courses(courses, branches)
+		elif ch == "7":
+			Enrollment.new_enrollment(enrollments, students, courses)
+		elif ch == "8":
+			Course.delete_course(courses, enrollments)
+		elif ch == "9":
+			Enrollment.archive_enrollments(enrollments, archived_enrolls)
 		elif ch == "10":
 			print "\nBye!\n"
 			break

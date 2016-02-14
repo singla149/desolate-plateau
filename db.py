@@ -29,7 +29,7 @@ class Student:
 
 	@staticmethod
 	def delete_student(students, enrollments):
-		roll = raw_input("Enter roll no.: ")
+		roll = raw_input("Enter roll no. of the student: ")
 		if roll not in students:
 			print "\n\nERROR! No such student exists!\n\n"
 			return
@@ -54,72 +54,51 @@ class Student:
 
 	@staticmethod
 	def modify_student(students, branches):
-		roll = raw_input("Enter roll no. of student whose details have to be modified: ")
+		roll = raw_input("Enter roll no. of the student: ")
 		if roll not in students:
 			print "\n\nERROR! Student not registered!\n\n"
 			return
-		print "Leave the fields blank to retain old values"
+
+		stu = students[roll]
+		print "Leave the fields blank to retain old values\n\n"
+		print "Current name:", stu["name"]
 		name = raw_input("Enter name: ")
 		if name != "":
 			while not validations.name(name):
 				name = raw_input("Enter name: ")
-		else:
-			name = students[roll]["name"]
-		c_type = raw_input("Enter course type (UG/PG): ")
-		if c_type != "":
-			while not validations.c_type(c_type.upper()):
-				c_type = raw_input("Enter course type (UG/PG): ")
-		else:
-			c_type = students[roll]["c_type"]
+			stu["name"] = name
+
+		print "Current sex:", stu["sex"]
 		sex = raw_input("Enter sex: ")
 		if sex != "":
 			while not validations.sex(sex.upper()):
 				sex = raw_input("Enter sex: ")
-		else:
-			sex = students[roll]["sex"]
+			stu["sex"] = sex
+
+		print "Current DOB:", stu["dob"]
 		dob = raw_input("Enter dob (YYYY-MM-DD): ")
 		if dob != "":
 			while not validations.date(dob):
 				dob = raw_input("Enter dob (YYYY-MM-DD): ")
-		else:
-			dob = students[roll]["dob"]
+			stu["dob"] = dob
+
+		print "Current phone number:", stu["ph_no"]
 		ph = raw_input("Enter phone number: ")
 		if ph != "":
 			while not validations.phno(ph):
 				ph = raw_input("Enter phone number: ")
-		else:
-			ph = students[roll]["ph_no"]
+			stu["ph_no"] = ph
+
 		addr = raw_input("Enter Address: ")
 		if addr != "":
-			add = raw_input("Enter Address: ")
-		else:
-			add = students[roll]["addr"]
-		br = raw_input("Enter branch: ")
-		if br != "":
-			b_id = -1
-			for key in branches:
-				if branches[key]["name"] == br:
-					b_id = key
-					break
-			if b_id == -1:
-				print "\n\nERROR! No such branch exists!\n\n"
-				return
-		else:
-			b_id = students[roll]["b_id"]
-		stu = Student(roll, name, c_type, sex, dob, ph, addr, b_id)
-		students[roll] = {
-			"name": name,
-			"c_type": c_type,
-			"dob": dob,
-			"sex": sex.upper(),
-			"addr": addr,
-			"ph_no": ph,
-			"b_id": b_id 
-		}
+			students[roll]["addr"] = addr
 
 	@staticmethod
 	def new_student(students, branches):
 		roll = raw_input("Enter roll no.: ")
+		while roll == "":
+			print "Incorrect format, Roll no. cannot be blank."
+			roll = raw_input("Enter roll no.: ")
 		name = raw_input("Enter name: ")
 		while not validations.name(name):
 			name = raw_input("Enter name: ")
@@ -145,7 +124,6 @@ class Student:
 		if b_id == -1:
 			print "\n\nERROR! No such branch exists!\n\n"
 			return
-		stu = Student(roll, name, c_type, sex, dob, ph, addr, b_id)
 		if roll in students:
 			print "\n\nERROR! Student already registered!\n\n"
 			return
@@ -215,8 +193,6 @@ class Course:
 		if b_id == -1:
 			print "\n\nERROR! No such branch exists!\n\n"
 		else:
-			print "yo\n"
-			cou = Course(c_id, c_type, name, b_id, cred, sem)
 			courses[c_id] = {
 			"c_type": c_type.upper(),
 			"name": name,

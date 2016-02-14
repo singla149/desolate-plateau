@@ -25,7 +25,7 @@ class Student:
 			headers = ["Roll No.", "Name", "DOB", "Sex", "Address", "Phone No.", "Branch", "Type"], 
 			tablefmt = "grid"
 			)
-		print "\n\n"
+		print "\n\n"	
 
 	@staticmethod
 	def delete_student(students, enrollments):
@@ -51,6 +51,71 @@ class Student:
 			tablefmt = "grid"
 			)
 		print "\n\n"
+
+	@staticmethod
+	def modify_student(students, branches):
+		roll = raw_input("Enter roll no. of student whose details have to be modified: ")
+		if roll not in students:
+			print "\n\nERROR! Student not registered!\n\n"
+			return
+		print "Leave the fields blank to retain old values"
+		name = raw_input("Enter name: ")
+		if name != "":
+			while not validations.name(name):
+				name = raw_input("Enter name: ")
+		else:
+			name = students[roll]["name"]
+		c_type = raw_input("Enter course type (UG/PG): ")
+		if c_type != "":
+			while not validations.c_type(c_type.upper()):
+				c_type = raw_input("Enter course type (UG/PG): ")
+		else:
+			c_type = students[roll]["c_type"]
+		sex = raw_input("Enter sex: ")
+		if sex != "":
+			while not validations.sex(sex.upper()):
+				sex = raw_input("Enter sex: ")
+		else:
+			sex = students[roll]["sex"]
+		dob = raw_input("Enter dob (YYYY-MM-DD): ")
+		if dob != "":
+			while not validations.date(dob):
+				dob = raw_input("Enter dob (YYYY-MM-DD): ")
+		else:
+			dob = students[roll]["dob"]
+		ph = raw_input("Enter phone number: ")
+		if ph != "":
+			while not validations.phno(ph):
+				ph = raw_input("Enter phone number: ")
+		else:
+			ph = students[roll]["ph_no"]
+		addr = raw_input("Enter Address: ")
+		if addr != "":
+			add = raw_input("Enter Address: ")
+		else:
+			add = students[roll]["addr"]
+		br = raw_input("Enter branch: ")
+		if br != "":
+			b_id = -1
+			for key in branches:
+				if branches[key]["name"] == br:
+					b_id = key
+					break
+			if b_id == -1:
+				print "\n\nERROR! No such branch exists!\n\n"
+				return
+		else:
+			b_id = students[roll]["b_id"]
+		stu = Student(roll, name, c_type, sex, dob, ph, addr, b_id)
+		students[roll] = {
+			"name": name,
+			"c_type": c_type,
+			"dob": dob,
+			"sex": sex.upper(),
+			"addr": addr,
+			"ph_no": ph,
+			"b_id": b_id 
+		}
 
 	@staticmethod
 	def new_student(students, branches):

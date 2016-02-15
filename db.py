@@ -12,6 +12,7 @@ class Student:
 			curr = [roll, 
 				stu["name"],
 				stu["dob"],
+				stu["doa"],
 				stu["sex"],
 				stu["addr"],
 				stu["ph_no"],
@@ -22,8 +23,8 @@ class Student:
 
 		print "\n\nStudents in the database:"
 		print tabulate(all_students, 
-			headers = ["Roll No.", "Name", "DOB", "Sex", "Address", "Phone No.", "Branch", "Type"], 
-			tablefmt = "grid"
+			headers = ["Roll No.", "Name", "Date of Birth", "Date of Admission", "Sex", "Address", "Phone No.", "Branch", "Type"], 
+			tablefmt = "fancy_grid"
 			)
 		print "\n\n"	
 
@@ -48,7 +49,7 @@ class Student:
 		print "\n\nRemovals for student:"
 		print tabulate(all_removals, 
 			headers = ["Course ID", "Enrollment Date"], 
-			tablefmt = "grid"
+			tablefmt = "fancy_grid"
 			)
 		print "\n\n"
 
@@ -81,6 +82,13 @@ class Student:
 			while not validations.date(dob):
 				dob = raw_input("Enter dob (YYYY-MM-DD): ")
 			stu["dob"] = dob
+
+		print "Current Date of Admission:", stu["dob"]
+		doa = raw_input("Enter Date of Admission (YYYY-MM-DD): ")
+		if doa != "":
+			while not validations.doa(doa, dob, stu["c_type"]):
+				doa = raw_input("Enter Date of Admission (YYYY-MM-DD): ")
+			stu["doa"] = doa
 
 		print "Current phone number:", stu["ph_no"]
 		ph = raw_input("Enter phone number: ")
@@ -116,6 +124,9 @@ class Student:
 		dob = raw_input("Enter dob (YYYY-MM-DD): ")
 		while not validations.date(dob):
 			dob = raw_input("Enter dob (YYYY-MM-DD): ")
+		doa = raw_input("Enter Date of Admission (YYYY-MM-DD): ")
+		while not validations.doa(doa, dob, c_type):
+			doa = raw_input("Enter doa (YYYY-MM-DD): ")
 		ph = raw_input("Enter phone number: ")
 		while not validations.phno(ph):
 			ph = raw_input("Enter phone number: ")
@@ -123,7 +134,7 @@ class Student:
 		br = raw_input("Enter branch: ")
 		b_id = -1
 		for key in branches:
-			if branches[key]["name"] == br:
+			if branches[key]["name"] == br.upper():
 				b_id = key
 				break
 		if b_id == -1:
@@ -133,6 +144,7 @@ class Student:
 			"name": name,
 			"c_type": c_type,
 			"dob": dob,
+			"doa": doa,
 			"sex": sex.upper(),
 			"addr": addr,
 			"ph_no": ph,
@@ -140,11 +152,12 @@ class Student:
 		}
 		print "\nStudent " + roll + ": " + students[roll]["name"] + " registered successfully.\n\n"
 
-	def __init__(self, rollno, name, sex, dob, ph_no, addr, b_id, c_type):
+	def __init__(self, rollno, name, sex, dob, doa, ph_no, addr, b_id, c_type):
 		self.rollno = rollno
 		self.name = name
 		self.sex = sex
 		self.dob = dob
+		self.doa = doa
 		self.ph_no = ph_no
 		self.addr = addr
 		self.b_id = b_id
@@ -168,7 +181,7 @@ class Course:
 		print "\n\nCourses in the database:"
 		print tabulate(all_courses, 
 			headers = ["Course ID", "Name", "Branch", "Credits", "Type", "Semester"], 
-			tablefmt = "grid"
+			tablefmt = "fancy_grid"
 			)
 		print "\n\n"
 
@@ -235,7 +248,7 @@ class Course:
 		print "\n\nRemovals for course:"
 		print tabulate(all_removals, 
 			headers = ["Roll No", "Enrollment Date"], 
-			tablefmt = "grid"
+			tablefmt = "fancy_grid"
 			)
 		print "\n\n"
 
@@ -295,12 +308,12 @@ class Enrollment:
 		print "\n\nCurrent Enrollments:"
 		print tabulate(current_enrollments,
 			headers = ["Course ID", "Course Name", "Enrollment Date"],
-			tablefmt = "grid"
+			tablefmt = "fancy_grid"
 			)
 		print "\n\nPrevious Enrollments:"
 		print tabulate(prev_enrollments,
 			headers = ["Course ID", "Course Name", "Enrollment Date"],
-			tablefmt = "grid"
+			tablefmt = "fancy_grid"
 			)
 		print "\n\n"
 
@@ -326,12 +339,12 @@ class Enrollment:
 		print "\n\nCurrent Enrollments:"
 		print tabulate(current_enrollments,
 			headers = ["Roll No", "Student Name", "Enrollment Date"],
-			tablefmt = "grid"
+			tablefmt = "fancy_grid"
 			)
 		print "\n\nPrevious Enrollments:"
 		print tabulate(prev_enrollments,
 			headers = ["Roll No", "Student Name", "Enrollment Date"],
-			tablefmt = "grid"
+			tablefmt = "fancy_grid"
 			)
 		print "\n\n"
 
@@ -352,7 +365,7 @@ class Enrollment:
 		print "\n\nEnrollments that were archived:"
 		print tabulate(all_removals,
 			headers = ["Roll No.", "Course ID", "Enrollment Date"],
-			tablefmt = "grid"
+			tablefmt = "fancy_grid"
 			)
 		print "\n\n"
 
@@ -397,7 +410,7 @@ class Enrollment:
 		print "\n\nStudent registered successfully for the following courses:"
 		print tabulate(enroll_courses, 
 			headers = ["Course ID", "Course Name"], 
-			tablefmt = "grid"
+			tablefmt = "fancy_grid"
 			)
 		print "\n\n"
 

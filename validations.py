@@ -9,6 +9,21 @@ def date(_date):
 		print "Incorrect date format, should be YYYY-MM-DD"
 		return False
 
+def doa(_doa, _dob, _c_type):
+	"""Validations for doa"""
+	try:
+		_doa = datetime.datetime.strptime(_doa, '%Y-%m-%d')
+	except ValueError:
+		print "Incorrect date format, should be YYYY-MM-DD"
+		return False
+	_dob = datetime.datetime.strptime(_dob, '%Y-%m-%d')
+
+	ch = {"PG": 21, "UG": 17}
+	if _dob + datetime.timedelta(weeks=52*ch[_c_type]) <= _doa:
+		return True
+	print "Student should be atleast", ch[_c_type] ,"years old at the time of admission for", _c_type, "course."
+	return False
+
 def sex(_sex):
 	"""Validations for sex"""
 	if _sex in ["M", "F"]:
@@ -48,13 +63,13 @@ def c_type(_c_type):
 	return False
 
 def sem(_sem, _type):
-	limit = {"UG": 8, "PG": 2}
+	limit = {"UG": 8, "PG": 4}
 	lim = limit[_type]
 	try:
 		if int(_sem) in xrange(1, lim+1):
 			return True
 	except:
 		pass
-	print "Incorrect sem, should be within 1-8 for UG and 1-2 for PG."
+	print "Incorrect sem, should be within 1-8 for UG and 1-4 for PG."
 	return False
 

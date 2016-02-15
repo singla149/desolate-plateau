@@ -99,6 +99,11 @@ class Student:
 		while roll == "":
 			print "Incorrect format, Roll no. cannot be blank."
 			roll = raw_input("Enter roll no.: ")
+
+		if roll in students:
+			print "\n\nERROR! Student already registered!\n\n"
+			return
+
 		name = raw_input("Enter name: ")
 		while not validations.name(name):
 			name = raw_input("Enter name: ")
@@ -124,9 +129,6 @@ class Student:
 		if b_id == -1:
 			print "\n\nERROR! No such branch exists!\n\n"
 			return
-		if roll in students:
-			print "\n\nERROR! Student already registered!\n\n"
-			return
 		students[roll] = {
 			"name": name,
 			"c_type": c_type,
@@ -136,6 +138,7 @@ class Student:
 			"ph_no": ph,
 			"b_id": b_id 
 		}
+		print "\nStudent " + roll + ": " + students[roll]["name"] + " registered successfully.\n\n"
 
 	def __init__(self, rollno, name, sex, dob, ph_no, addr, b_id, c_type):
 		self.rollno = rollno
@@ -171,10 +174,18 @@ class Course:
 
 	@staticmethod
 	def new_course(courses, branches):
-		c_id = len(courses)+1
-		c_type = raw_input("Enter course type: ")
+		c_id = raw_input("Enter Course ID: ")
+		while c_id == "":
+			print "Incorrect format, Course ID cannot be blank."
+			c_id = raw_input("Enter Course ID: ")
+
+		if c_id in courses:
+			print "\n\nERROR! Course already registered!\n\n"
+			return
+
+		c_type = raw_input("Enter course type (UG/PG): ")
 		while not validations.c_type(c_type.upper()):
-			c_type = raw_input("Enter course type: ")
+			c_type = raw_input("Enter course type (UG/PG): ")
 		name = raw_input("Enter course name: ")
 		while not validations.name(name):
 			name = raw_input("Enter course name: ")
@@ -192,14 +203,16 @@ class Course:
 				break
 		if b_id == -1:
 			print "\n\nERROR! No such branch exists!\n\n"
-		else:
-			courses[c_id] = {
-			"c_type": c_type.upper(),
-			"name": name,
-			"b_id": b_id,
-			"cred": cred,
-			"sem": sem
-			}
+			return
+
+		courses[c_id] = {
+		"c_type": c_type.upper(),
+		"name": name,
+		"b_id": b_id,
+		"cred": cred,
+		"sem": sem
+		}
+		print "\nCourse " + c_id + ": " + courses[c_id]["name"] + " registered successfully.\n\n"
 
 	@staticmethod
 	def delete_course(courses, enrollments):

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% block head %}
+	{% endblock head %}
+	<meta charset="utf-8">
+	<meta name="description" content="Student management system!">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Open Graph data -->
+	<meta property="og:type" content="website" />
+	<meta property="og:description" content="Student management system!" />
+	<meta property="og:site_name" content="Student management system!" />
+
+	<!-- Twitter Card data -->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@publisher_handle">
+	<meta name="twitter:description" content="Student management system!">
+
+	<!-- BOOTSTRAP CSS -->
+	<link href="{{url_for('static', filename = 'lib/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" media="screen">
+	<link href="{{url_for('static', filename = 'lib/bootstrap/css/bootstrap-theme.min.css')}}" rel="stylesheet">
+
+	{% block css %}
+	{% endblock css %}
+</head>
+
+<body>
+	{% block content %}
+	{% endblock content %}
+</body>
+	<!-- BOOTSTRAP JS -->
+<script src="{{url_for('static', filename = 'lib/bootstrap/js/bootstrap.min.js')}}"></script>
+{% block js %}
+{% endblock js %}
+</html>

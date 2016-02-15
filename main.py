@@ -4,7 +4,7 @@ app.config.from_pyfile('config.py')
 
 @app.route('/')
 def index():
-    return 'Hello World!'
+    return render_template("index.html")
 
 if __name__ == '__main__':
     app.run(host = "0.0.0.0", port = 8000)

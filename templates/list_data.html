@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% set active_page = 'all_students' %}
+
+{% block head %}
+<title>
+    {{obj}} List | Student Management System
+</title>
+<meta property="og:title" content="{{obj}} List | Student Management System" />
+<meta name="twitter:title" content="{{obj}} List | Student Management System">
+{% endblock head %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+	<div class="table-responsive">
+	<table class="table table-hover table-condensed">
+		<thead>
+			<tr>
+				{% for col in cols %}
+					<th>{{col}}</th>
+				{% endfor %}
+			</tr>
+		</thead>
+		<tbody>
+			{% for row in list %}
+				<tr>
+					{% for attr in row %}
+						<td>{{attr}}</td>
+					{% endfor %}
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	</div>
+	</div>
+</div>
+{% endblock content %}

@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% set active_page = "delete_"~obj|lower %}
+
+{% block head %}
+<title>
+	Delete {{obj}} | Student Management System
+</title>
+<meta property="og:title" content="Delete {{obj}} | Student Management System" />
+<meta name="twitter:title" content="Delete {{obj}} | Student Management System">
+{% endblock head %}
+
+{% block content %}
+<div class="container">
+	{% if flag == 1 %}
+		<form action="{{ url_for('delete_'~obj|lower) }}" method="post" role="form" class="form-horizontal">
+			<div class="form-group">
+				<label for="{{key}}">{{key}}:</label>
+				<input type="text" id="{{key}}" placeholder="{{key}}" name="{{key}}" class="form-control">
+			</div>
+			<div class="form-group">
+				<button type="submit" class="btn btn-danger">Delete!</button>
+			</div>
+		</form>
+	{% elif flag == 2 %}
+	<h2> Deleting {{obj}} <small>{{keyval}} - {{name}}</small></h2>
+	<p>Following {{key2}} will also get deleted.</p>
+	<div class="table-responsive">
+		<table id="{{obj}}table" class="table table-hover table-condensed sortable">
+			<thead>
+				<tr>
+					{% for col in cols %}
+					<th>{{col}}</th>
+					{% endfor %}
+				</tr>
+			</thead>
+			<tbody>
+				{% for row in rows %}
+				<tr>
+					{% for attr in row %}
+					<td>{{attr}}</td>
+					{% endfor %}
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<form action="{{ url_for('delete_'~obj|lower) }}" onsubmit="return bhej()" method="post" role="form" class="form-horizontal">
+		<input type="hidden" name="{{key}}" id="{{key}}" value="{{keyval}}">
+		<div class="form-group">
+			<label for="confirm">Are you sure you want to delete?</label>
+			<input type="checkbox" id="confirm" name="confirm" class="form-control">
+			<input type='hidden' value="0" name="hidden" id="hidden">
+		</div>
+		<div class="form-group">
+			<button type="submit" class="btn btn-danger">Delete!</button>
+		</div>
+	</form>
+	{% elif flag == 3 %}
+	{{obj}} {{keyval}} {{name}} deleted successfully.
+	{% endif %}
+</div>
+{% endblock content %}
+
+{% block js %}
+<script type="text/javascript">
+function bhej() {
+	if(document.getElementById("confirm").checked) {
+	    document.getElementById("hidden").value = "1";
+	}
+	return true;
+}	
+
+</script>
+{% endblock js %}

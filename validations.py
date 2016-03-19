@@ -18,10 +18,13 @@ def doa(_doa, _dob, _c_type):
 		return False
 	_dob = datetime.datetime.strptime(_dob, '%Y-%m-%d')
 
-	ch = {"PG": 21, "UG": 17}
-	if _dob + datetime.timedelta(weeks=52*ch[_c_type]) <= _doa:
-		return True
-	print "Student should be atleast", ch[_c_type] ,"years old at the time of admission for", _c_type, "course."
+	ch = {"PG": [21, 30], "UG": [17, 26]}
+	if _dob + datetime.timedelta(weeks=52*ch[_c_type][0]) <= _doa:
+		if _dob + datetime.timedelta(weeks=52*ch[_c_type][1]) > _doa:
+			return True
+		else:
+			print "Student should be no more than", ch[_c_type][1] ,"years old at the time of admission for", _c_type, "course."
+	print "Student should be atleast", ch[_c_type][0] ,"years old at the time of admission for", _c_type, "course."
 	return False
 
 def sex(_sex):

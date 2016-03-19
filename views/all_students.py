@@ -11,7 +11,7 @@ def all_students():
     with open("files/branches.json", "r") as f:
         branches = json.load(f)
     data = []
-    for roll in students:
+    for roll in sorted(students):
         stu = students[roll]
         curr = [roll, 
             stu["name"],

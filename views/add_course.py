@@ -10,15 +10,16 @@ import datetime
 from main import app
 
 class AddCourseForm(Form):
-    c_id = IntegerField('Course ID:', validators=[DataRequired(message="Course ID should be a valid number.")])
-    name = StringField('Name:', validators=
-        [DataRequired(), 
-        Regexp("[a-z.A-Z\s]+$",
+    c_id = IntegerField('Course ID:', render_kw = {"placeholder": "Course ID"},
+        validators=[DataRequired(message="Course ID should be a valid number.")]
+        )
+    name = StringField('Name:', render_kw = {"placeholder": "Name"},
+        validators= [DataRequired(), Regexp("[a-z.A-Z\s]+$",
             message="Incorrect format, name shouldn't contain any special characters or numbers.")]
         )
     br = SelectField('Branch:', validators=[DataRequired()])
-    sem = IntegerField('Semester:', validators=[DataRequired()])
-    cred = IntegerField('Credits:', validators=[DataRequired()])
+    sem = IntegerField('Semester:', render_kw = {"placeholder": "Semester"}, validators=[DataRequired()])
+    cred = IntegerField('Credits:', render_kw = {"placeholder": "Credits"}, validators=[DataRequired()])
     c_type = SelectField('Course Type:', validators=[DataRequired()])
     submit =  SubmitField('Add!')
 

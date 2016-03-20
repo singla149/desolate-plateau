@@ -6,3 +6,4 @@ from delete_course import *
 
 from add_student import *
 from add_course import *
+from add_enrollment import *

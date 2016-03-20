@@ -10,19 +10,25 @@ import datetime
 from main import app
 
 class AddStudentForm(Form):
-    roll = IntegerField('Roll No.:', validators=[DataRequired(message="Roll No should be a valid number.")])
+    roll = IntegerField('Roll No.:',  render_kw = {"placeholder": "Roll No"},
+        validators=[DataRequired(message="Roll No should be a valid number.")]
+        )
 
-    name = StringField('Name:', validators=
-        [DataRequired(), 
+    name = StringField('Name:', render_kw = {"placeholder": "Name"},
+        validators = [DataRequired(), 
         Regexp("[a-z.A-Z\s]+$",
             message="Incorrect format, name shouldn't contain any special characters or numbers.")]
         )
 
-    sex = SelectField('Sex:', validators=[DataRequired()])
+    sex = SelectField('Sex:',  render_kw = {"placeholder": "Sex"},
+        validators=[DataRequired()]
+        )
 
     c_type = SelectField('Course Type:', validators=[DataRequired()])
 
-    sem = IntegerField('Semester:', validators=[DataRequired()])
+    sem = IntegerField('Semester:',  render_kw = {"placeholder": "Semester"},
+        validators=[DataRequired()]
+        )
 
     dob = DateField('Date of Birth:', validators=[DataRequired()])
 
@@ -30,10 +36,12 @@ class AddStudentForm(Form):
 
     br = SelectField('Branch:', validators=[DataRequired()])
 
-    addr = TextAreaField('Address:', validators=[DataRequired()])
+    addr = TextAreaField('Address:', render_kw = {"placeholder": "Address"},
+        validators=[DataRequired()])
 
-    ph_no = IntegerField('Phone Number:', validators=[DataRequired(),
-                NumberRange(min=1111111111, max=9999999999, message="Please enter a valid mobile number.")])
+    ph_no = IntegerField('Phone Number:',  render_kw = {"placeholder": "Phone Number"},
+        validators=[DataRequired(),
+            NumberRange(min=1111111111, max=9999999999, message="Please enter a valid mobile number.")])
 
     submit =  SubmitField('Add!')
 

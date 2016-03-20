@@ -15,7 +15,7 @@ def delete_course():
         enrollments = {}
         with open("files/enrollments.json", "r") as f:
             enrollments = json.load(f)
-        roll = request.form[key]
+        c_id = request.form[key]
 
         if c_id not in courses:
             return "\n\nERROR! No such course exists!\n\n"
@@ -40,11 +40,11 @@ def delete_course():
         for removal in all_removals:
             del enrollments[removal[0]+"##@@##"+c_id]
         del courses[c_id]
-        with open("files/removal[1].json", "w") as f:
-            json.dump(removal[1], f)
+        with open("files/courses.json", "w") as f:
+            json.dump(courses, f)
         with open("files/enrollments.json", "w") as f:
             json.dump(enrollments, f)
-        return render_template("delete.html", obj = obj, keyval = roll,
+        return render_template("delete.html", obj = obj, keyval = c_id,
                                 flag = 3, name = name,
                                 )
 

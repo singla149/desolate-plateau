@@ -53,7 +53,7 @@ class AddStudentForm(Form):
         _dob = self.dob.data
         _doa = self.doa.data
         _c_type = self.c_type.data
-        _sem = self.sem.data
+        # _sem = self.sem.data
 
         rv = True
 
@@ -90,11 +90,11 @@ class AddStudentForm(Form):
 
         limit = {"UG": 8, "PG": 4}
         lim = limit[_c_type]
-        if _sem not in xrange(1, lim+1):
-            self.sem.errors.append(
-                "Incorrect sem. Should be between 1-" + str(lim) + " for " + _c_type
-                )
-            rv = False
+        # if _sem not in xrange(1, lim+1):
+        #     self.sem.errors.append(
+        #         "Incorrect sem. Should be between 1-" + str(lim) + " for " + _c_type
+        #         )
+        #     rv = False
 
         return rv
 

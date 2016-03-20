@@ -58,6 +58,7 @@ class AddStudentForm(Form):
                 )
             rv = False
 
+
         ch = {"PG": [21, 30], "UG": [17, 26]}
         if _dob + datetime.timedelta(weeks=52*ch[_c_type][0]) <= _doa:
             if _dob + datetime.timedelta(weeks=52*ch[_c_type][1]) > _doa:
@@ -91,6 +92,7 @@ class AddStudentForm(Form):
 
 @app.route('/add-student/', methods =["GET", "POST"])
 def add_student():
+    obj = "Student"
     form = AddStudentForm()
 
     branches = {}
@@ -117,7 +119,7 @@ def add_student():
         with open("files/students.json", "w") as f:
             json.dump(students, f)
         flash("Student added successfully.", "success")
-        return render_template("add_student.html", form = form)
+        return render_template("add_data.html", form = form, obj = obj)
     elif request.method == "POST":
         flash("There seem to be some errors in the form", "danger")
-    return render_template("add_student.html", form = form)
+    return render_template("add_data.html", form = form, obj = obj)

@@ -51,8 +51,11 @@
 					] %}
 					{% set enrollments_bar = [
 						('add_enrollment', 'Add an enrollment'),
+						('list_enrolls_by_CID', 'List enrollments by Course'),
+						('list_enrolls_by_RollNo', 'List enrollments by Student'),
 					] %}
 					{% set branches_bar = [
+						('add_branch', 'Add a branch'),
 						('all_branches', 'List all Branches'),
 					] %}
 					{% set navigation_bar = [
@@ -64,12 +67,14 @@
 						('Enrollments', enrollments_bar),
 						('Branches', branches_bar),
 					] %}
+
 					{% set active_page = active_page|default('index') %}
 					{% for href, caption in navigation_bar %}
 						<li{% if href == active_page %} class="active"{% endif %}>
 							<a href={% if href != "#"%}"{{ url_for(href) }}" {% else %}"#"{% endif %}>{{ caption|e }}</a>
 						</li>
 					{% endfor %}
+
 					{% for name, bar in dropdown_bar %}
 						<li class="dropdown">
 							<a class="dropdown-toggle" data-toggle="dropdown" href="#">{{name}}<span class="caret"></span></a>
@@ -82,6 +87,7 @@
 							</ul>
 						</li>
 					{% endfor %}
+					
 				</ul>
 			</div>
 		</div>

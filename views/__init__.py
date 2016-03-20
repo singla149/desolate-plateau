@@ -11,6 +11,7 @@ from add_enrollment import *
 from add_branch import *
 
 from list_enrollments import *
+from archive_enrollments import *
 
 from modify_student import *
 from modify_course import *

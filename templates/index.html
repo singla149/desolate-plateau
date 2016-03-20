@@ -2,11 +2,31 @@
 
 {% block head %}
 <title>
-    Home | Student Management System
+	Home | Student Management System
 </title>
 <meta property="og:title" content="Home | Student Management System" />
 <meta name="twitter:title" content="Home | Student Management System">
 {% endblock head %}
 
 {% block content %}
+<div class="container">
+	<div class="row">
+		{% for name, bar in dropdown_bar %}
+		<div class="col-sm-6">
+			<div class="panel panel-primary">
+				<div class="panel-heading">{{name}}</div>
+				<div class="panel-body">
+					<ul class="list-group">
+						{% for href, caption in bar %}
+							<li class="list-group-item" {% if href == active_page %} class="active"{% endif %}>
+								<a href={% if href != "#"%}"{{ url_for(href) }}" {% else %}"#"{% endif %}>{{ caption|e }}</a>
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+</div>
 {% endblock content %}

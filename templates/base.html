@@ -55,6 +55,7 @@
 						('add_enrollment', 'Add an enrollment'),
 						('list_enrolls_by_CID', 'List enrollments by Course'),
 						('list_enrolls_by_RollNo', 'List enrollments by Student'),
+						('archive_enrollments', 'Archive old enrollments'),
 					] %}
 					{% set branches_bar = [
 						('add_branch', 'Add a branch'),
@@ -84,7 +85,7 @@
 								{% for href, caption in bar %}
 									<li{% if href == active_page %} class="active"{% endif %}>
 									<a href={% if href != "#"%}"{{ url_for(href) }}" {% else %}"#"{% endif %}>{{ caption|e }}</a>
-								</li>
+									</li>
 								{% endfor %}
 							</ul>
 						</li>

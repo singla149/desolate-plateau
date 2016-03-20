@@ -91,7 +91,7 @@ def add_enrollment():
         c_type = students[form.roll.data]["c_type"]
         for c_id in courses:
             if sem == courses[c_id]["sem"] and b_id == courses[c_id]["b_id"] and c_type == courses[c_id]["c_type"]:
-                key = form.roll.data + "##@@##" + form.c_id.data
+                key = form.roll.data + "##@@##" + c_id
                 if key not in enrollments:
                     enroll_courses.append( [c_id, courses[c_id]["name"]])
                     enrollments[key] = {"doe": str(datetime.date.today())}

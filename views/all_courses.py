@@ -22,4 +22,4 @@ def all_courses():
         ]
         data.append(curr)
     col = ["Course ID", "Name", "Branch", "Credits", "Type", "Sem"]
-    return render_template('list_data.html', obj = "courses", rows = data, cols = col)
+    return render_template('list_data.html', obj = "Courses", rows = data, cols = col)

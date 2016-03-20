@@ -39,21 +39,47 @@
 
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
+					{% set student_bar = [
+						('add_student', 'Add a student'),
+						('all_students', 'List all Students'),
+						('delete_student', 'Delete a student'),
+					] %}
+					{% set courses_bar = [
+						('add_course', 'Add a course'),
+						('all_courses', 'List all Courses'),
+						('delete_course', 'Delete a course'),
+					] %}
+					{% set enrollments_bar = [
+						('add_enrollment', 'Add an enrollment'),
+					] %}
+					{% set branches_bar = [
+						('all_branches', 'List all Branches'),
+					] %}
 					{% set navigation_bar = [
 						('index', 'Home'),
-						('all_students', 'List all Students'),
-						('all_courses', 'List all Courses'),
-						('all_branches', 'List all Branches'),
-						('delete_student', 'Delete a student'),
-						('delete_course', 'Delete a course'),
-						('add_student', 'Add a student'),
-						('add_course', 'Add a course'),
-						('add_enrollment', 'Add an enrollment'),
+					] %}
+					{% set dropdown_bar = [
+						('Student', student_bar),
+						('Courses', courses_bar),
+						('Enrollments', enrollments_bar),
+						('Branches', branches_bar),
 					] %}
 					{% set active_page = active_page|default('index') %}
 					{% for href, caption in navigation_bar %}
 						<li{% if href == active_page %} class="active"{% endif %}>
 							<a href={% if href != "#"%}"{{ url_for(href) }}" {% else %}"#"{% endif %}>{{ caption|e }}</a>
+						</li>
+					{% endfor %}
+					{% for name, bar in dropdown_bar %}
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#">{{name}}<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								{% for href, caption in bar %}
+									<li{% if href == active_page %} class="active"{% endif %}>
+									<a href={% if href != "#"%}"{{ url_for(href) }}" {% else %}"#"{% endif %}>{{ caption|e }}</a>
+								</li>
+								{% endfor %}
+							</ul>
 						</li>
 					{% endfor %}
 				</ul>

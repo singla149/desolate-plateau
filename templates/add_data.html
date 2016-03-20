@@ -18,6 +18,11 @@
 
 {% block content %}
 <div class="container">
+	<ol class="breadcrumb">
+  		<li><a href="{{url_for('index')}}">Home</a></li>
+  		<li><a href="#">{{obj}}</a></li>
+  		<li class="active">Add a {{obj}}</li>
+	</ol>
 	<h2>Add a {{obj}}</h2>
 	<div class="row">
 		{% with messages = get_flashed_messages(with_categories=true) %}

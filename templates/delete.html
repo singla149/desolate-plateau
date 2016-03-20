@@ -10,7 +10,13 @@
 {% endblock head %}
 
 {% block content %}
+
 <div class="container">
+	<ol class="breadcrumb">
+  		<li><a href="{{url_for('index')}}">Home</a></li>
+  		<li><a href="#">{{obj}}</a></li>
+  		<li class="active">Delete a {{obj}}</li>
+	</ol>
 	{% if flag == 1 %}
 		<form action="{{ url_for('delete_'~obj|lower) }}" method="post" role="form" class="form-horizontal">
 			<div class="form-group">

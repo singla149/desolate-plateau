@@ -25,5 +25,4 @@ def all_students():
         ]
         data.append(curr)
     col = ["Roll No.", "Name", "Date Of Birth", "Date Of Admission", "Sex", "Address", "Phone No.", "Branch", "Course type"]
-    print students
     return render_template('list_data.html', obj = "Students", rows = data, cols = col)

@@ -9,7 +9,6 @@ def delete_course():
     key = "Course ID"
     if request.method == 'POST':
         courses = {}
-        print request.form
         with open("files/courses.json", "r") as f:
             courses = json.load(f)
         enrollments = {}
@@ -33,9 +32,7 @@ def delete_course():
                                 cols = ["Roll No", "Date of Enrollment"]
                                 )
 
-        print request.form["hidden"]
         if request.form["hidden"] == "0":
-            print "ASDASDSAD"
             return redirect(url_for('index'))
         for removal in all_removals:
             del enrollments[removal[0]+"##@@##"+c_id]

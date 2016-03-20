@@ -16,5 +16,4 @@ def all_branches():
         ]
         data.append(curr)
     col = ["Branch ID", "Name"]
-    print branches
     return render_template('list_data.html', obj = "branches", rows = data, cols = col)

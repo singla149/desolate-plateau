@@ -9,14 +9,16 @@ def delete_student():
     key = "Roll No"
     if request.method == 'POST':
         students = {}
-        print request.form
         with open("files/students.json", "r") as f:
             students = json.load(f)
         enrollments = {}
         with open("files/enrollments.json", "r") as f:
             enrollments = json.load(f)
         roll = request.form[key]
-
+        archived_enrolls = {}
+        with open("files/archived_enrolls.json", "r") as f:
+            archived_enrolls = json.load(f)
+        
         if roll not in students:
             return "\n\nERROR! No such student exists!\n\n"
         all_removals = []
@@ -33,17 +35,24 @@ def delete_student():
                                 cols = ["Course ID", "Date of Enrollment"]
                                 )
 
-        print request.form["hidden"]
         if request.form["hidden"] == "0":
-            print "ASDASDSAD"
             return redirect(url_for('index'))
         for removal in all_removals:
             del enrollments[roll+"##@@##"+removal[0]]
+        all_removals = []
+        for enroll in archived_enrolls:
+            if roll == enroll.split("##@@##")[0]:
+                removal = [enroll.split("##@@##")[1], archived_enrolls[enroll]["doe"]]
+                all_removals.append(removal)
+        for removal in all_removals:
+            del archived_enrolls[roll+"##@@##"+removal[0]]
         del students[roll]
         with open("files/students.json", "w") as f:
             json.dump(students, f)
         with open("files/enrollments.json", "w") as f:
             json.dump(enrollments, f)
+        with open("files/archived_enrolls.json", "w") as f:
+            json.dump(archived_enrolls, f)
         return render_template("delete.html", obj = obj, keyval = roll,
                                 flag = 3, name = name,
                                 )

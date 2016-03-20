@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% import 'bootstrap/wtf.html' as wtf %}
-{% set active_page = "add_"~obj|lower %}
+{% set active_page = "modify_"~obj|lower %}
 
 {% block head %}
 <title>
-	Add {{obj}} | Student Management System
+	Modify {{obj}} | Student Management System
 </title>
-<meta property="og:title" content="Add {{obj}} | Student Management System" />
-<meta name="twitter:title" content="Add {{obj}} | Student Management System">
+<meta property="og:title" content="Modify {{obj}} | Student Management System" />
+<meta name="twitter:title" content="Modify {{obj}} | Student Management System">
 {% endblock head %}
 
 
@@ -21,9 +21,9 @@
 	<ol class="breadcrumb">
   		<li><a href="{{url_for('index')}}">Home</a></li>
   		<li><a href="#">{{obj}}</a></li>
-  		<li class="active">Add a {{obj}}</li>
+  		<li class="active">Modify a {{obj}}</li>
 	</ol>
-	<h2>Add a {{obj}}</h2>
+	<h2>Modify a {{obj}}</h2>
 	<div class="row">
 		{% with messages = get_flashed_messages(with_categories=true) %}
   			{% if messages %}
@@ -36,33 +36,10 @@
   			{% endif %}
 		{% endwith %}
 
-		{% if rows %}
-			<h3>Student enrolled in the following courses.</h3>
-			<div class="table-responsive">
-			<table id="{{obj}}table" class="table table-hover table-condensed sortable">
-				<thead>
-					<tr>
-						{% for col in cols %}
-						<th>{{col}}</th>
-						{% endfor %}
-					</tr>
-				</thead>
-				<tbody>
-					{% for row in rows %}
-					<tr>
-						{% for attr in row %}
-						<td>{{attr}}</td>
-						{% endfor %}
-					</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-		</div>
-		<div class="btn-group pull-left ">
-  			<a href="{{url_for('index')}}" class="btn btn-primary"><i class="fa fa-arrow-circle-left"></i> Go Back!</a>
-		</div>
-		{% else %}
-			{{ wtf.quick_form(form, form_type="horizontal", id="add-form", button_map={'submit': 'success'}) }}
+		
+		{{ wtf.quick_form(form1, form_type="horizontal", id="choose-form", button_map={'submit': 'primary'}) }}
+		{% if form2 %}
+			{{ wtf.quick_form(form2, form_type="horizontal", id="modify-form", button_map={'submit': 'success'}) }}
 		{% endif %}
 		
 	</div>
@@ -74,4 +51,13 @@
 	<script type="text/javascript">
   		$('select').select2();
 	</script>
+	{% if addr %}
+	<script type="text/javascript">
+		function inits() {
+			var addr = document.getElementById("addr");
+			addr.innerHTML = "{{addr}}";
+		}
+		window.onload = inits();
+	</script>
+	{% endif %}
 {% endblock js %}

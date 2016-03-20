@@ -26,9 +26,9 @@ class AddStudentForm(Form):
 
     c_type = SelectField('Course Type:', validators=[DataRequired()])
 
-    sem = IntegerField('Semester:',  render_kw = {"placeholder": "Semester"},
-        validators=[DataRequired()]
-        )
+    # sem = IntegerField('Semester:',  render_kw = {"placeholder": "Semester"},
+    #     validators=[DataRequired()]
+    #     )
 
     dob = DateField('Date of Birth:', validators=[DataRequired()])
 

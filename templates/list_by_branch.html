@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% set active_page = "all_"~obj|lower %}
+
+{% block head %}
+<title>
+	List {{obj}} by Branch | Student Management System
+</title>
+<meta property="og:title" content="List {{obj}} by Branch | Student Management System" />
+<meta name="twitter:title" content="List {{obj}} by Branch | Student Management System">
+{% endblock head %}
+
+{% block css %}
+	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/tsorter.css')}}">
+	<link href="{{url_for('static', filename='css/select2.min.css')}}" rel="stylesheet" />
+	<link href="{{url_for('static', filename='css/select2-bootstrap-css.min.css')}}" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<ol class="breadcrumb">
+  		<li><a href="{{url_for('index')}}">Home</a></li>
+  		<li><a href="#">Branches</a></li>
+  		<li class="active">List {{obj}} by Branch</li>
+	</ol>
+	<div class="row">
+		{% with messages = get_flashed_messages(with_categories=true) %}
+  			{% if messages %}
+    			{% for category, message in messages %}
+					<div class="alert alert-{{category}}">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						{{message}}
+					</div>
+    			{% endfor %}
+  			{% endif %}
+		{% endwith %}
+		{{ wtf.quick_form(form, form_type="horizontal", id="list-form", button_map={'submit': 'info'}) }}
+		{% if cols %}
+			<h2>{{obj}} in Branch</h2>
+			<div class="table-responsive">
+				<table id="table" class="table table-hover table-condensed sortable">
+					<thead>
+						<tr>
+							{% for col in cols %}
+							<th>{{col}}</th>
+							{% endfor %}
+						</tr>
+					</thead>
+					<tbody>
+						{% for row in rows %}
+						<tr>
+							{% for attr in row %}
+							<td>{{attr}}</td>
+							{% endfor %}
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+
+		{% endif %}
+	</div>
+</div>
+{% endblock content %}
+
+{% block js %}
+	<script src="{{url_for('static',filename='js/tsorter.min.js')}}" type="text/javascript"></script>
+	<script type="text/javascript">
+		function init() {
+			var sorter1 = tsorter.create('table');
+		}
+		window.onload = init;
+	</script>
+	<script src="{{url_for('static', filename='js/select2.min.js')}}"></script>
+	<script type="text/javascript">
+  		$('select').select2();
+	</script>
+{% endblock js %}

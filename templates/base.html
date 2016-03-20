@@ -46,11 +46,13 @@
 						('all_branches', 'List all Branches'),
 						('delete_student', 'Delete a student'),
 						('delete_course', 'Delete a course'),
+						('add_student', 'Add a student'),
 					] %}
 					{% set active_page = active_page|default('index') %}
 					{% for href, caption in navigation_bar %}
-						<li{% if href == active_page %} class="active"{% endif
-					%}><a href={% if href != "#"%}"{{ url_for(href) }}" {% else %}"#"{% endif %}>{{ caption|e }}</a></li>
+						<li{% if href == active_page %} class="active"{% endif %}>
+							<a href={% if href != "#"%}"{{ url_for(href) }}" {% else %}"#"{% endif %}>{{ caption|e }}</a>
+						</li>
 					{% endfor %}
 				</ul>
 			</div>

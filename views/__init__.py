@@ -3,3 +3,5 @@ from all_courses import *
 from all_branches import *
 from delete_student import *
 from delete_course import *
+
+from add_student import *

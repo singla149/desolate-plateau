@@ -98,7 +98,7 @@ def modify_student():
     students = {}
     with open("files/students.json", "r") as f:
         students = json.load(f)
-    form1.rollno.choices = [(roll, str(roll) + " - " + students[roll]["name"]) for roll in sorted(students)]
+    form1.rollno.choices = [(roll, str(roll) + " - " + students[roll]["name"]) for roll in sorted(students,key=lambda x: int(x))]
 
     form2 = ModifyStudentForm()
     if form2.validate_on_submit():

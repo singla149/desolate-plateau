@@ -108,4 +108,5 @@ def add_enrollment():
          )
     elif request.method == "POST":
         flash("There seem to be some errors in the form", "danger")
+    flash("Student will be enrolled for all the courses of the sem of the course selected.", "info")
     return render_template("add_data.html", form = form, obj = obj)

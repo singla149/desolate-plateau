@@ -32,5 +32,5 @@ def archive_enrollments():
 
     rows = data.sort(key=lambda x: x[0])
     col = [("numeric", "Roll No."), ("numeric", "Course ID"), ("input-text", "Enrollment Date")]
-    flash("Following are the enrollments newly archived.", "info")
+    flash("Following are the enrollments newly archived. Enrollments that were more than 6 months old were archived.", "info")
     return render_template('list_data.html', obj = "Newly Archived Enrollments", rows = data, cols = col)

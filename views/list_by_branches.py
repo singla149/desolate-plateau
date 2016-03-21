@@ -40,7 +40,7 @@ def list_courses_by_branch():
             x[0] = int(x[0])
         branch_courses.sort(key=lambda x: x[0])
         cols = [("numeric", "Course ID"), ("input-text", "Name"), 
-        ("input-text", "Date of Enrollment"), ("input-text", "Course Type")]
+        ("input-text", "Credits"), ("input-text", "Course Type")]
 
         return render_template("list_by_branch.html", form = form, obj = obj, cols = cols,
                 rows = branch_courses)

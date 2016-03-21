@@ -47,7 +47,7 @@ def modify_course():
     courses = {}
     with open("files/courses.json", "r") as f:
         courses = json.load(f)
-    form1.course_id.choices = [(c_id, str(c_id) + " - " + courses[c_id]["name"]) for c_id in sorted(courses)]
+    form1.course_id.choices = [(c_id, str(c_id) + " - " + courses[c_id]["name"]) for c_id in sorted(courses, key=lambda x: int(x))]
 
     form2 = ModifyCourseForm()
     if form2.validate_on_submit():

@@ -5,6 +5,7 @@ from wtforms.fields.html5 import DateField
 from wtforms.validators import DataRequired, Length, Regexp, NumberRange
 
 import json
+from operator import itemgetter
 import datetime
 
 from main import app
@@ -100,7 +101,8 @@ def add_enrollment():
             json.dump(enrollments, f)
         
         flash("Enrollments added successfully.", "success")
-        cols = ["Course ID", "Course Name"]
+        enroll_courses.sort(key=lambda x: x[0])
+        cols = [("numeric", "Course ID"), ("input-text", "Course Name")]
         return render_template("add_data.html", form = form, obj = obj,
          rows = enroll_courses, cols = cols
          )

@@ -15,5 +15,6 @@ def all_branches():
             cou["name"],
         ]
         data.append(curr)
-    col = ["Branch ID", "Name"]
+    col = [("numeric", "Branch ID"), ("input-text", "Name")]
+    data.sort(key=lambda x: x[0])
     return render_template('list_data.html', obj = "Branches", rows = data, cols = col)

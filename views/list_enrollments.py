@@ -20,7 +20,7 @@ def list_enrolls_by_CID():
     courses = {}
     with open("files/courses.json", "r") as f:
         courses = json.load(f)
-    form.c_id.choices = [(c_id, str(c_id) + " - " + courses[c_id]["name"]) for c_id in sorted(courses)]
+    form.c_id.choices = [(c_id, str(c_id) + " - " + courses[c_id]["name"]) for c_id in sorted(courses, key=lambda x: int(x))]
 
     if form.validate_on_submit():
         enrollments = {}
@@ -46,8 +46,9 @@ def list_enrolls_by_CID():
                 enrol = [roll, students[roll]["name"], archived_enrolls[key]["doe"]]
                 prev_enrollments.append(enrol)
 
-        cols = ["Roll No.", "Name", "Date of Enrollment"]
-
+        cols = [("numeric", "Roll No."), ("input-text", "Name"), ("input-text", "Date of Enrollment")]
+        prev_enrollments.sort(key=lambda x: x[0])
+        current_enrollments.sort(key=lambda x: x[0])
         return render_template("list_enrollments.html", form = form, obj = obj, cols = cols,
                 rows1 = current_enrollments, rows2 = prev_enrollments)
     elif request.method == "POST":
@@ -67,7 +68,7 @@ def list_enrolls_by_RollNo():
     students = {}
     with open("files/students.json", "r") as f:
         students = json.load(f)
-    form.roll.choices = [(roll, str(roll) + " - " + students[roll]["name"]) for roll in sorted(students)]
+    form.roll.choices = [(roll, str(roll) + " - " + students[roll]["name"]) for roll in sorted(students, key=lambda x: int(x))]
 
     if form.validate_on_submit():
         enrollments = {}
@@ -93,8 +94,16 @@ def list_enrolls_by_RollNo():
                 enrol = [c_id, courses[c_id]["name"], archived_enrolls[key]["doe"]]
                 prev_enrollments.append(enrol)
 
-        cols = ["Course ID", "Name", "Date of Enrollment"]
+        cols = [("numeric", "Course ID"), ("input-text", "Name"), ("input-text", "Date of Enrollment")]
 
+        for x in prev_enrollments:
+            x[0] = int(x[0])
+
+        for x in current_enrollments:
+            x[0] = int(x[0])
+
+        prev_enrollments.sort(key=lambda x: x[0])
+        current_enrollments.sort(key=lambda x: x[0])
         return render_template("list_enrollments.html", form = form, obj = obj, cols = cols,
                 rows1 = current_enrollments, rows2 = prev_enrollments)
     elif request.method == "POST":

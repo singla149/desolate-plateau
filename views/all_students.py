@@ -24,5 +24,12 @@ def all_students():
             stu["c_type"]
         ]
         data.append(curr)
-    col = ["Roll No.", "Name", "Date Of Birth", "Date Of Admission", "Sex", "Address", "Phone No.", "Branch", "Course type"]
+
+    for x in data:
+        x[0] = int(x[0])
+    
+    data.sort(key=lambda x: x[0])
+    col = [("numeric", "Roll No."), ("input-text", "Name"), ("input-text", "Date Of Birth"),
+     ("input-text", "Date Of Admission"), ("input-text", "Sex"), ("input-text", "Address"),
+      ("numeric", "Phone No."), ("input-text", "Branch"), ("input-text", "Course type")]
     return render_template('list_data.html', obj = "Students", rows = data, cols = col)

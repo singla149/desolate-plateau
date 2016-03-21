@@ -21,5 +21,10 @@ def all_courses():
             cou["sem"],
         ]
         data.append(curr)
-    col = ["Course ID", "Name", "Branch", "Credits", "Type", "Sem"]
-    return render_template('list_data.html', obj = "Courses", rows = data, cols = col)
+
+    for x in data:
+        x[0] = int(x[0])
+    data.sort(key=lambda x: x[0])
+    cols = [("numeric", "Course ID"), ("input-text", "Name"), ("input-text", "Branch"),
+     ("numeric", "Credits"), ("input-text", "Type"), ("input-text", "Sem")]
+    return render_template('list_data.html', obj = "Courses", rows = data, cols = cols)

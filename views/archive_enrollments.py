@@ -30,6 +30,7 @@ def archive_enrollments():
     with open("files/archived_enrolls.json", "w") as f:
         json.dump(archived_enrolls, f)
 
-    col = ["Roll No.", "Course ID", "Enrollment Date"]
+    rows = data.sort(key=lambda x: x[0])
+    col = [("numeric", "Roll No."), ("numeric", "Course ID"), ("input-text", "Enrollment Date")]
     flash("Following are the enrollments newly archived.", "info")
     return render_template('list_data.html', obj = "Newly Archived Enrollments", rows = data, cols = col)

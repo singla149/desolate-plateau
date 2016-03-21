@@ -41,8 +41,8 @@
 				<table id="enrolltable1" class="table table-hover table-condensed sortable">
 					<thead>
 						<tr>
-							{% for col in cols %}
-							<th>{{col}}</th>
+							{% for type, col in cols %}
+								<th data-tsorter="{{type}}">{{col}}</th>
 							{% endfor %}
 						</tr>
 					</thead>
@@ -63,8 +63,8 @@
 				<table id="enrolltable2" class="table table-hover table-condensed sortable">
 					<thead>
 						<tr>
-							{% for col in cols %}
-							<th>{{col}}</th>
+							{% for type, col in cols %}
+								<th data-tsorter="{{type}}">{{col}}</th>
 							{% endfor %}
 						</tr>
 					</thead>

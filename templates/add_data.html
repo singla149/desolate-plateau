@@ -42,8 +42,8 @@
 			<table id="{{obj}}table" class="table table-hover table-condensed sortable">
 				<thead>
 					<tr>
-						{% for col in cols %}
-						<th>{{col}}</th>
+						{% for type, col in cols %}
+						<th data-sorter="{{type}}">{{col}}</th>
 						{% endfor %}
 					</tr>
 				</thead>

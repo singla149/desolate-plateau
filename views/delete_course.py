@@ -29,10 +29,11 @@ def delete_course():
 
         name = courses[c_id]["name"]
         if "hidden" not in request.form:
+            all_removals.sort(key=lambda x: x[0])
             return render_template("delete.html", obj = obj, keyval = c_id,
                                 key = key, flag = 2, name = name,
                                 key2 = "enrollments", rows = all_removals,
-                                cols = ["Roll No", "Date of Enrollment"]
+                                cols = [("numeric","Roll No"), ("input-text", "Date of Enrollment")]
                                 )
 
         if request.form["hidden"] == "0":

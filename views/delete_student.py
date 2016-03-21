@@ -29,10 +29,11 @@ def delete_student():
 
         name = students[roll]["name"]
         if "hidden" not in request.form:
+            all_removals.sort(key=lambda x: x[0])
             return render_template("delete.html", obj = obj, keyval = roll,
                                 key = key, flag = 2, name = name,
                                 key2 = "enrollments", rows = all_removals,
-                                cols = ["Course ID", "Date of Enrollment"]
+                                cols = [("numeric", "Course ID"), ("input-text", "Date of Enrollment")]
                                 )
 
         if request.form["hidden"] == "0":

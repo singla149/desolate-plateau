@@ -35,7 +35,13 @@ def list_courses_by_branch():
                 curr.append(courses[key]["cred"])
                 curr.append(courses[key]["c_type"])
                 branch_courses.append(curr)
-        cols = ["Roll No.", "Name", "Date of Enrollment", "Course Type"]
+
+        for x in branch_courses:
+            x[0] = int(x[0])
+        branch_courses.sort(key=lambda x: x[0])
+        cols = [("numeric", "Course ID"), ("input-text", "Name"), 
+        ("input-text", "Date of Enrollment"), ("input-text", "Course Type")]
+
         return render_template("list_by_branch.html", form = form, obj = obj, cols = cols,
                 rows = branch_courses)
     elif request.method == "POST":
@@ -68,7 +74,13 @@ def list_students_by_branch():
                 curr.append(students[key]["sex"])
                 curr.append(students[key]["c_type"])
                 branch_students.append(curr)
-        cols = ["Roll No.", "Name", "Date of Birth", "Date of Admission", "Phone No.", "Sex", "Course Type"]
+
+        for x in branch_students:
+            x[0] = int(x[0])
+        branch_students.sort(key=lambda x: x[0])
+        cols = [("numeric", "Roll No."), ("input-text", "Name"), ("input-text", "Date of Birth"),
+         ("input-text", "Date of Admission"), ("numeric", "Phone No."), ("input-text", "Sex"),
+          ("input-text", "Course Type")]
         return render_template("list_by_branch.html", form = form, obj = obj, cols = cols,
                 rows = branch_students)
     elif request.method == "POST":

@@ -12,7 +12,7 @@ from main import app
 
 class AddEnrollmentForm(Form):
     roll = SelectField('Roll No.:', validators=[DataRequired()])
-    c_id = SelectField('Course ID:', validators=[DataRequired()])
+    c_id = SelectField('Semester:', validators=[DataRequired()])
     submit =  SubmitField('Add!')
 
     def validate(self):
@@ -37,28 +37,66 @@ class AddEnrollmentForm(Form):
         with open("files/branches.json", "r") as f:
             branches = json.load(f)
 
-        if students[_roll]["c_type"] != courses[_c_id]["c_type"]:
+        limit = {"UG": 8, "PG": 4}
+        _c_type = students[_roll]["c_type"]
+        lim = limit[_c_type]
+        if int(_c_id) not in xrange(1, lim+1):
             self.c_id.errors.append(
-                "Course not available for this student. Student is of " + students[_roll]["c_type"] +
-                ". Whereas the course is for " + courses[_c_id]["c_type"] + "."
+                "Incorrect sem. Should be between 1-" + str(lim) + " for " + _c_type
                 )
             rv = False
 
-        if students[_roll]["b_id"] != courses[_c_id]["b_id"]:
-            self.c_id.errors.append(
-                "Cannot enroll student in other branch's couse. Student is of " + 
-                branches[students[_roll]["b_id"]]["name"] + ". Whereas the course is for " +
-                branches[courses[_c_id]["b_id"]]["name"] + "."
-                )
-            rv = False
+        # print _c_id
+        for c_id in courses:
+            key = str(_roll) + "##@@##" + str(c_id)
+            if int(_c_id) == int(courses[c_id]["sem"]) and students[_roll]["c_type"] == courses[c_id]["c_type"] and key in enrollments:
+                self.c_id.errors.append(
+                    "Student already registered for this semester's courses."
+                    )
+                print str(c_id)
+                rv = False
+                break
 
-        key = _roll + "##@@##" + _c_id
-        if key in enrollments:
-            self.c_id.errors.append(
-                "Student already registered for this course."
-                )
+        f = 0
+        print f
+        for c_id in courses:
+            if int(_c_id) == int(courses[c_id]["sem"]) and students[_roll]["c_type"] == courses[c_id]["c_type"] and students[_roll]["b_id"] == courses[c_id]["b_id"]:
+                print c_id
+                print _c_id
+                print courses[c_id]["sem"]
+                print students[_roll]["c_type"]
+                print courses[c_id]["c_type"]
+                f = 1
+                break
+        print f
+        if f == 0:
             rv = False
+            self.c_id.errors.append(
+                "No courses were found for this semester."
+                )
 
+        # if students[_roll]["c_type"] != courses[_c_id]["c_type"]:
+        #     self.c_id.errors.append(
+        #         "Course not available for this student. Student is of " + students[_roll]["c_type"] +
+        #         ". Whereas the course is for " + courses[_c_id]["c_type"] + "."
+        #         )
+        #     rv = False
+
+        # if students[_roll]["b_id"] != courses[_c_id]["b_id"]:
+        #     self.c_id.errors.append(
+        #         "Cannot enroll student in other branch's couse. Student is of " + 
+        #         branches[students[_roll]["b_id"]]["name"] + ". Whereas the course is for " +
+        #         branches[courses[_c_id]["b_id"]]["name"] + "."
+        #         )
+        #     rv = False
+
+        # key = _roll + "##@@##" + _c_id
+        # if key in enrollments:
+        #     self.c_id.errors.append(
+        #         "Student already registered for this course."
+        #         )
+        #     rv = False
+        
         return rv
 
 @app.route('/add-enrollment/', methods =["GET", "POST"])
@@ -70,10 +108,13 @@ def add_enrollment():
     with open("files/students.json", "r") as f:
         students = json.load(f)
     form.roll.choices = [(roll, str(roll) + " - " + students[roll]["name"]) for roll in sorted(students)]
-    courses = {}
-    with open("files/courses.json", "r") as f:
-        courses = json.load(f)
-    form.c_id.choices = [(c_id, str(c_id) + " - " + courses[c_id]["name"]) for c_id in sorted(courses)]
+    # courses = {}
+    # with open("files/courses.json", "r") as f:
+    #     courses = json.load(f)
+    # form.c_id.choices = [(c_id, str(c_id) + " - " + courses[c_id]["name"]) for c_id in sorted(courses)]
+
+    form.c_id.choices = [(str(x), x) for x in xrange(1, 9)]
+
 
     if form.validate_on_submit():
         students = {}
@@ -87,11 +128,12 @@ def add_enrollment():
             enrollments = json.load(f)
 
         enroll_courses = []
-        sem = courses[form.c_id.data]["sem"]
+        sem = form.c_id.data
+        # sem = courses[form.c_id.data]["sem"]
         b_id = students[form.roll.data]["b_id"]
         c_type = students[form.roll.data]["c_type"]
         for c_id in courses:
-            if sem == courses[c_id]["sem"] and b_id == courses[c_id]["b_id"] and c_type == courses[c_id]["c_type"]:
+            if int(sem) == int(courses[c_id]["sem"]) and b_id == courses[c_id]["b_id"] and c_type == courses[c_id]["c_type"]:
                 key = form.roll.data + "##@@##" + c_id
                 if key not in enrollments:
                     enroll_courses.append( [c_id, courses[c_id]["name"]])
@@ -108,5 +150,5 @@ def add_enrollment():
          )
     elif request.method == "POST":
         flash("There seem to be some errors in the form", "danger")
-    flash("Student will be enrolled for all the courses of the sem of the course selected.", "info")
+    flash("Student will be enrolled for all the courses of this sem.", "info")
     return render_template("add_data.html", form = form, obj = obj)
